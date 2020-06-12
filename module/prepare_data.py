@@ -47,7 +47,7 @@ def nltk_preprocess_text(
 
 class Preprocessor(TransformerMixin):
     def __init__(self,
-                 text_features,
+                 text_feature,
                  _stopwords=STOPWORDS,
                  stemmer=STEMMER,
                  tokenizer='nltk',
@@ -61,5 +61,12 @@ class Preprocessor(TransformerMixin):
         return self
 
     def transform(self, data):
-        return data[self.text_feature].apply(lambda x: nltk_preprocess_text(
-            x, self.stemmer, self.stopwords, self.tokenizer))
+        data = data.copy()
+        data[self.text_feature] = (
+            data[self.text_feature]
+            .apply(lambda x: nltk_preprocess_text(
+                    x,
+                    self.stemmer,
+                    self.stopwords,
+                    self.tokenizer)))
+        return data
