@@ -34,9 +34,9 @@ def prepare_data(data):
                 abort_request(f"Data should have field 'text'.")
         else:
             abort_request('Data should be dict or list of dicts.')
-    data = pd.DataFrame({'text': data})
-    logger.info(f'There is {len(data)} elements in request data.')
-    return is_list, data
+    text_data = pd.DataFrame({'text': text_data})
+    logger.info(f'There is {len(text_data)} elements in request data.')
+    return is_list, text_data
 
 
 @app.route('/ping')
@@ -51,7 +51,7 @@ def predict():
     is_list, data = prepare_data(data)
 
     try:
-        predicts = model.predict(data).tolist()
+        predicts = model.predict_proba(data)[:, 1].tolist()
         predicts = predicts if is_list else predicts[0]
         return jsonify(predicts)
     except Exception as e:
