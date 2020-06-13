@@ -28,10 +28,10 @@ def nltk_preprocess_text(
         tokenize_type='nltk'
 ):
     if tokenize_type == 'nltk':
-        tokens = [word for sent in nltk.sent_tokenize(text)
+        tokens = [word.lower() for sent in nltk.sent_tokenize(text)
                   for word in nltk.word_tokenize(sent)]
     else:
-        tokens = [word for sent in nltk.sent_tokenize(text)
+        tokens = [word.lower() for sent in nltk.sent_tokenize(text)
                   for word in re.split(r'[\W\d_]+', sent)]
 
     tokens = [stemmer.stem(token) for token in tokens
