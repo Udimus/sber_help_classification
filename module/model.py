@@ -6,9 +6,9 @@ import gzip
 import logging
 
 from catboost import CatBoostClassifier
+from sklearn.pipeline import Pipeline
 
 from .prepare_data import Preprocessor
-from sklearn.pipeline import Pipeline
 
 
 logger = logging.getLogger(__name__)

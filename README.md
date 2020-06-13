@@ -34,3 +34,12 @@
 
 ### Сервис
 Сервис, в который можно обратиться по API.
+
+
+## Сборка
+
+```docker build -t test_help_sber_solution .```
+
+## Запуск
+
+```docker run -p 5000:5000 test_help_sber_solution```

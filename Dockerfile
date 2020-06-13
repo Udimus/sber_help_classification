@@ -14,16 +14,19 @@ RUN pip install --no-cache-dir -r /requirements.txt
 RUN mkdir /src
 RUN mkdir /src/service
 RUN mkdir /src/module
+RUN mkdir /src/tools
 
 # Copy module and service
 COPY module /src/module
 COPY service/run_service.py /src
+COPY tools/ /src/tools
 COPY setup.py /src
 COPY requirements.txt /src
 
 # Install module
 WORKDIR /src
 RUN pip install -e .
+RUN python3 tools/prepare_nltk.py
 
 # Run solution
 COPY models/model.pkl.gz /src/model.pkl.gz
